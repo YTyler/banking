@@ -9,6 +9,7 @@ public class Account {
     @SequenceGenerator(
             name = "account_sequence",
             sequenceName = "account_sequence",
+            initialValue = 1000000000,
             allocationSize = 1
     )
     @GeneratedValue(
