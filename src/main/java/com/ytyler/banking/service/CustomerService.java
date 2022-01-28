@@ -21,12 +21,12 @@ public class CustomerService {
     }
 
     //get all Customers
-    public List<Customer> getAll() {
+    public List<Customer> readAll() {
         return customerRepo.findAll();
     }
 
     //get a Customer by id
-    public Customer getById(Long id) throws ResourceNotFoundException {
+    public Customer readById(Long id) throws ResourceNotFoundException {
         Optional<Customer> customerOptional = customerRepo.findById(id);
         if(customerOptional.isEmpty()) {
             throw new ResourceNotFoundException("Customer with id: " + id + " was not found");
@@ -36,13 +36,13 @@ public class CustomerService {
     }
 
     //create a new Customer
-    public Customer saveCustomer(Customer customer) {
+    public Customer createCustomer(Customer customer) {
         return customerRepo.save(customer);
     }
 
     //update an existing Customer
     @Transactional
-    public Customer editCustomer(long id, Customer customer) throws ResourceNotFoundException {
+    public Customer updateCustomer(long id, Customer customer) throws ResourceNotFoundException {
         Optional<Customer> customerOptional = customerRepo.findById(id);
         if (customerOptional.isEmpty()) {
             throw new ResourceNotFoundException("Customer with id: " + id + " was not found");
