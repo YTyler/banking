@@ -60,17 +60,13 @@ public class CustomerService {
     }
 
     //delete a Customer
-    public boolean deleteCustomer(Long id) throws ResourceNotFoundException{
+    public Customer deleteCustomer(Long id) throws ResourceNotFoundException{
         Optional<Customer> customerOptional = customerRepo.findById(id);
         if (customerOptional.isEmpty()) {
             throw new ResourceNotFoundException("Customer with id: " + id + " was not found");
         }
-        try {
-            customerRepo.deleteById(id);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-        return true;
+        Customer customer = customerOptional.get();
+        customerRepo.deleteById(id);
+        return customer;
     }
 }
