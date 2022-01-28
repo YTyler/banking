@@ -36,13 +36,13 @@ public class CustomerService {
     }
 
     //create a new Customer
-    public Customer createCustomer(Customer customer) {
+    public Customer create(Customer customer) {
         return customerRepo.save(customer);
     }
 
     //update an existing Customer
     @Transactional
-    public Customer updateCustomer(long id, Customer customer) throws ResourceNotFoundException {
+    public Customer update(long id, Customer customer) throws ResourceNotFoundException {
         Optional<Customer> customerOptional = customerRepo.findById(id);
         if (customerOptional.isEmpty()) {
             throw new ResourceNotFoundException("Customer with id: " + id + " was not found");
@@ -60,7 +60,7 @@ public class CustomerService {
     }
 
     //delete a Customer
-    public Customer deleteCustomer(Long id) throws ResourceNotFoundException{
+    public Customer delete(Long id) throws ResourceNotFoundException{
         Optional<Customer> customerOptional = customerRepo.findById(id);
         if (customerOptional.isEmpty()) {
             throw new ResourceNotFoundException("Customer with id: " + id + " was not found");

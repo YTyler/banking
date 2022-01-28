@@ -38,12 +38,12 @@ public class CustomerController {
     }
     @PostMapping
     public ResponseEntity<Customer> postCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.createCustomer(customer), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.create(customer), HttpStatus.OK);
     }
     @PutMapping(path="{id}")
     public ResponseEntity<Object> putCustomer(@PathVariable Long id, @RequestBody Customer customer) {
         try{
-            return new ResponseEntity<>(customerService.updateCustomer(id, customer), HttpStatus.OK);
+            return new ResponseEntity<>(customerService.update(id, customer), HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
@@ -52,7 +52,7 @@ public class CustomerController {
     @DeleteMapping(path="{id}")
     public ResponseEntity<Object> deleteCustomer(@PathVariable long id) {
         try {
-            return new ResponseEntity<>(customerService.deleteCustomer(id), HttpStatus.OK);
+            return new ResponseEntity<>(customerService.delete(id), HttpStatus.OK);
         } catch(ResourceNotFoundException e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
