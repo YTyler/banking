@@ -18,7 +18,7 @@ public class Transaction {
     )
     private long transaction_id;
     private long reference_number;
-    private Date date_time;
+    private String date_time;
     private String type;
     private String subtype;
     private long amount;
@@ -26,7 +26,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(long reference_number, Date date_time, String type, String subtype, long amount) {
+    public Transaction(long reference_number, String date_time, String type, String subtype, long amount) {
         this.reference_number = reference_number;
         this.date_time = date_time;
         this.type = type;
@@ -34,7 +34,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Transaction(long transaction_id, long reference_number, Date date_time, String type, String subtype, long amount) {
+    public Transaction(long transaction_id, long reference_number, String date_time, String type, String subtype, long amount) {
         this.transaction_id = transaction_id;
         this.reference_number = reference_number;
         this.date_time = date_time;
@@ -59,11 +59,11 @@ public class Transaction {
         this.reference_number = reference_number;
     }
 
-    public Date getDate_time() {
+    public String getDate_time() {
         return date_time;
     }
 
-    public void setDate_time(Date date_time) {
+    public void setDate_time(String date_time) {
         this.date_time = date_time;
     }
 
