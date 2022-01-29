@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Config ###
-/src/main/java/com/dex/quest/config/
+/src/main/java/com/ytyler/banking/config/
