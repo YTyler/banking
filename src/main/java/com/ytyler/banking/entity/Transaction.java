@@ -1,7 +1,8 @@
 package com.ytyler.banking.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table
@@ -23,6 +24,7 @@ public class Transaction {
     private String subtype;
     private long amount;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="account_number", nullable=false)
     private Account account;

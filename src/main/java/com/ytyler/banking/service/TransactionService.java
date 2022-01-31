@@ -1,7 +1,7 @@
 package com.ytyler.banking.service;
 
 
-import com.ytyler.banking.entity.Customer;
+import com.ytyler.banking.entity.Account;
 import com.ytyler.banking.entity.Transaction;
 import com.ytyler.banking.exception.ResourceNotFoundException;
 import com.ytyler.banking.repository.TransactionRepo;
@@ -19,10 +19,12 @@ import java.util.Optional;
 public class TransactionService {
 
     private final TransactionRepo transactionRepo;
+    private final AccountService accountService;
 
     @Autowired
-    public TransactionService(TransactionRepo transactionRepo) {
+    public TransactionService(TransactionRepo transactionRepo, AccountService accountService) {
         this.transactionRepo = transactionRepo;
+        this.accountService = accountService;
     }
 
     //Date Validation Helper
@@ -54,7 +56,9 @@ public class TransactionService {
     }
 
     //create a new Transaction
-    public Transaction create(Transaction transaction) {
+    public Transaction create(Transaction transaction) throws ResourceNotFoundException {
+        Account account = accountService.readById(transaction.getAccount().getAccount_number());
+        transaction.setAccount(account);
         return transactionRepo.save(transaction);
     }
 

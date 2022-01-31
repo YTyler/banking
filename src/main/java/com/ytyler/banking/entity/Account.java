@@ -1,5 +1,8 @@
 package com.ytyler.banking.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,10 +23,12 @@ public class Account {
     private long account_number;
     private long balance;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="customer_id", nullable = false)
     Customer customer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "account")
     List<Transaction> transactions;
 

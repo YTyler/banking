@@ -1,6 +1,5 @@
 package com.ytyler.banking.controller;
 
-import com.ytyler.banking.entity.Customer;
 import com.ytyler.banking.entity.Transaction;
 import com.ytyler.banking.exception.ResourceNotFoundException;
 import com.ytyler.banking.service.TransactionService;
@@ -39,8 +38,14 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> postTransaction(@RequestBody Transaction transaction) {
-        return new ResponseEntity<>(transactionService.create(transaction), HttpStatus.OK);
+    public ResponseEntity<Object> postTransaction(@RequestBody Transaction transaction) {
+        try {
+            return new ResponseEntity<>(transactionService.create(transaction), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping(path="{id}")

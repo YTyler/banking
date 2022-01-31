@@ -1,5 +1,7 @@
 package com.ytyler.banking.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     User user;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     List<Account> accounts;
 
