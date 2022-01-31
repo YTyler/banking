@@ -1,6 +1,7 @@
 package com.ytyler.banking.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -22,24 +23,24 @@ public class Customer {
     private String postal_address;
     private String email;
 
+    @OneToOne(mappedBy = "customer")
+    User user;
+
+    @OneToMany(mappedBy = "customer")
+    List<Account> accounts;
+
     public Customer() {
     }
 
-    public Customer(long pan, String citizen_uid, String name, String postal_address, String email) {
-        this.pan = pan;
-        this.citizen_uid = citizen_uid;
-        this.name = name;
-        this.postal_address = postal_address;
-        this.email = email;
-    }
-
-    public Customer(long customer_id, long pan, String citizen_uid, String name, String postal_address, String email) {
+    public Customer(long customer_id, long pan, String citizen_uid, String name, String postal_address, String email, User user, List<Account> accounts) {
         this.customer_id = customer_id;
         this.pan = pan;
         this.citizen_uid = citizen_uid;
         this.name = name;
         this.postal_address = postal_address;
         this.email = email;
+        this.user = user;
+        this.accounts = accounts;
     }
 
     public long getCustomer_id() {
@@ -90,6 +91,22 @@ public class Customer {
         this.email = email;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -99,6 +116,8 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", postal_address='" + postal_address + '\'' +
                 ", email='" + email + '\'' +
+                ", user=" + user +
+                ", accounts=" + accounts +
                 '}';
     }
 }

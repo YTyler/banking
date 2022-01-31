@@ -1,6 +1,7 @@
 package com.ytyler.banking.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -17,15 +18,23 @@ public class Account {
             generator = "account_sequence"
     )
     private long account_number;
-    private long customer_id;
     private long balance;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="customer_id", nullable = false)
+    Customer customer;
+
+    @OneToMany(mappedBy = "account")
+    List<Transaction> transactions;
 
     public Account() {
     }
 
-    public Account(long customer_id, long balance) {
-        this.customer_id = customer_id;
+    public Account(long account_number, long balance, Customer customer, List<Transaction> transactions) {
+        this.account_number = account_number;
         this.balance = balance;
+        this.customer = customer;
+        this.transactions = transactions;
     }
 
     public long getAccount_number() {
@@ -36,14 +45,6 @@ public class Account {
         this.account_number = account_number;
     }
 
-    public long getCustomer_id() {
-        return customer_id;
-    }
-
-    public void setCustomer_id(long customer_id) {
-        this.customer_id = customer_id;
-    }
-
     public long getBalance() {
         return balance;
     }
@@ -52,18 +53,29 @@ public class Account {
         this.balance = balance;
     }
 
-    public Account(long account_number, long customer_id, long balance) {
-        this.account_number = account_number;
-        this.customer_id = customer_id;
-        this.balance = balance;
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "account_number=" + account_number +
-                ", customer_id=" + customer_id +
                 ", balance=" + balance +
+                ", customer=" + customer +
+                ", transactions=" + transactions +
                 '}';
     }
 }

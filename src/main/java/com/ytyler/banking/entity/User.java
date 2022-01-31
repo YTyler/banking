@@ -19,7 +19,18 @@ public class User {
     private String password;
     private String role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     public User() {
+    }
+
+    public User(long user_id, String password, String role, Customer customer) {
+        this.user_id = user_id;
+        this.password = password;
+        this.role = role;
+        this.customer = customer;
     }
 
     public User(String password, String role) {
@@ -63,6 +74,7 @@ public class User {
                 "user_id=" + user_id +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", customer=" + customer +
                 '}';
     }
 }

@@ -23,24 +23,21 @@ public class Transaction {
     private String subtype;
     private long amount;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="account_number", nullable=false)
+    private Account account;
+
     public Transaction() {
     }
 
-    public Transaction(long reference_number, String date_time, String type, String subtype, long amount) {
-        this.reference_number = reference_number;
-        this.date_time = date_time;
-        this.type = type;
-        this.subtype = subtype;
-        this.amount = amount;
-    }
-
-    public Transaction(long transaction_id, long reference_number, String date_time, String type, String subtype, long amount) {
+    public Transaction(long transaction_id, long reference_number, String date_time, String type, String subtype, long amount, Account account) {
         this.transaction_id = transaction_id;
         this.reference_number = reference_number;
         this.date_time = date_time;
         this.type = type;
         this.subtype = subtype;
         this.amount = amount;
+        this.account = account;
     }
 
     public long getTransaction_id() {
@@ -91,15 +88,24 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
                 "transaction_id=" + transaction_id +
                 ", reference_number=" + reference_number +
-                ", date_time=" + date_time +
+                ", date_time='" + date_time + '\'' +
                 ", type='" + type + '\'' +
                 ", subtype='" + subtype + '\'' +
                 ", amount=" + amount +
+                ", account=" + account +
                 '}';
     }
 }

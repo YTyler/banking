@@ -1,6 +1,7 @@
 package com.ytyler.banking.service;
 
 import com.ytyler.banking.entity.Account;
+import com.ytyler.banking.entity.Customer;
 import com.ytyler.banking.exception.ResourceNotFoundException;
 import com.ytyler.banking.repository.AccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,13 @@ import java.util.Optional;
 public class AccountService {
 
     private final AccountRepo accountRepo;
+    private final CustomerService customerService;
 
     @Autowired
-    public AccountService(AccountRepo accountRepo) { this.accountRepo = accountRepo; }
+    public AccountService(AccountRepo accountRepo, CustomerService customerService) {
+        this.accountRepo = accountRepo;
+        this.customerService = customerService;
+    }
 
     //get all accounts
     public List<Account> readAll() {
@@ -34,7 +39,9 @@ public class AccountService {
     }
 
     //create a new Account
-    public Account create(Account account) {
+    public Account create(Account account) throws  ResourceNotFoundException{
+        Customer customer = customerService.readById(account.getCustomer().getCustomer_id());
+        account.setCustomer(customer);
         return accountRepo.save(account);
     }
 

@@ -38,8 +38,13 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<Account> postAccount(@RequestBody Account account) {
-        return new ResponseEntity<>(accountService.create(account), HttpStatus.OK);
+    public ResponseEntity<Object> postAccount(@RequestBody Account account) {
+        try {
+            return new ResponseEntity<>(accountService.create(account), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping(path="{account_number}")
