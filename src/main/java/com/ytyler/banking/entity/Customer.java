@@ -1,5 +1,6 @@
 package com.ytyler.banking.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +32,9 @@ public class Customer {
     private String postal_address;
     private String email;
 
-    @OneToOne(mappedBy = "customer")
+    @JsonBackReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     User user;
 
     @JsonManagedReference

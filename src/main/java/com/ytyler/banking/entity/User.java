@@ -1,5 +1,6 @@
 package com.ytyler.banking.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class User {
     private String password;
     private String role;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
+    @JsonManagedReference
+    @OneToOne(mappedBy = "user")
     private Customer customer;
 }

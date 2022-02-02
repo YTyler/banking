@@ -38,8 +38,13 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> postCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.create(customer), HttpStatus.OK);
+    public ResponseEntity<Object> postCustomer(@RequestBody Customer customer) {
+        try {
+            return new ResponseEntity<>(customerService.create(customer), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping(path="{id}")

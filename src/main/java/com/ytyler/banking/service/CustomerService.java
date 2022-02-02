@@ -1,6 +1,7 @@
 package com.ytyler.banking.service;
 
 import com.ytyler.banking.entity.Customer;
+import com.ytyler.banking.entity.User;
 import com.ytyler.banking.exception.ResourceNotFoundException;
 import com.ytyler.banking.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomerRepo customerRepo;
+    private final UserService userService;
 
     @Autowired
-    public CustomerService(CustomerRepo customerRepo) {
+    public CustomerService(CustomerRepo customerRepo, UserService userService) {
         this.customerRepo = customerRepo;
+        this.userService = userService;
     }
 
     //get all Customers
@@ -36,7 +39,9 @@ public class CustomerService {
     }
 
     //create a new Customer
-    public Customer create(Customer customer) {
+    public Customer create(Customer customer) throws ResourceNotFoundException {
+        User user = userService.readById(customer.getUser().getUser_id());
+        customer.setUser(user);
         return customerRepo.save(customer);
     }
 
