@@ -1,7 +1,14 @@
 package com.ytyler.banking.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table
 public class User {
@@ -22,59 +29,4 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-
-    public User() {
-    }
-
-    public User(long user_id, String password, String role, Customer customer) {
-        this.user_id = user_id;
-        this.password = password;
-        this.role = role;
-        this.customer = customer;
-    }
-
-    public User(String password, String role) {
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(long user_id, String password, String role) {
-        this.user_id = user_id;
-        this.password = password;
-        this.role = role;
-    }
-
-    public long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + user_id +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", customer=" + customer +
-                '}';
-    }
 }
