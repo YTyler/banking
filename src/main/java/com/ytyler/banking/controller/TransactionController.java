@@ -28,44 +28,23 @@ public class TransactionController {
     }
 
     @GetMapping(path="{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
-        try {
-            return new ResponseEntity<>(transactionService.readById(id), HttpStatus.OK);
-        } catch(ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> getById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(transactionService.readById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Object> postTransaction(@RequestBody Transaction transaction) {
-        try {
-            return new ResponseEntity<>(transactionService.create(transaction), HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> postTransaction(@RequestBody Transaction transaction) throws ResourceNotFoundException {
+        return new ResponseEntity<>(transactionService.create(transaction), HttpStatus.OK);
     }
 
     @PutMapping(path="{id}")
-    public ResponseEntity<Object> putTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
-        try{
-            return new ResponseEntity<>(transactionService.update(id, transaction), HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> putTransaction(@PathVariable Long id, @RequestBody Transaction transaction) throws ResourceNotFoundException {
+        return new ResponseEntity<>(transactionService.update(id, transaction), HttpStatus.OK);
     }
 
     @DeleteMapping(path="{id}")
-    public ResponseEntity<Object> deleteTransaction(@PathVariable long id) {
-        try {
-            return new ResponseEntity<>(transactionService.delete(id), HttpStatus.OK);
-        } catch(ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> deleteTransaction(@PathVariable long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(transactionService.delete(id), HttpStatus.OK);
     }
 
 }

@@ -29,13 +29,8 @@ public class UserController {
     }
 
     @GetMapping(path="{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
-        try {
+    public ResponseEntity<Object> getById(@PathVariable("id") Long id) throws ResourceNotFoundException {
             return new ResponseEntity<>(userService.readById(id), HttpStatus.OK);
-        } catch(ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
     }
 
     @PostMapping
@@ -44,22 +39,12 @@ public class UserController {
     }
 
     @PutMapping(path="{id}")
-    public ResponseEntity<Object> putUser(@PathVariable Long id, @RequestBody User user) {
-        try{
+    public ResponseEntity<Object> putUser(@PathVariable Long id, @RequestBody User user) throws ResourceNotFoundException {
             return new ResponseEntity<>(userService.update(id, user), HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping(path="{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable long id) {
-        try {
+    public ResponseEntity<Object> deleteUser(@PathVariable long id) throws ResourceNotFoundException {
             return new ResponseEntity<>(userService.delete(id), HttpStatus.OK);
-        } catch(ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
     }
 }

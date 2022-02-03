@@ -28,42 +28,22 @@ public class CustomerController {
     }
 
     @GetMapping(path="{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
-        try {
-            return new ResponseEntity<>(customerService.readById(id), HttpStatus.OK);
-        } catch(ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> getById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(customerService.readById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Object> postCustomer(@RequestBody Customer customer) {
-        try {
-            return new ResponseEntity<>(customerService.create(customer), HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> postCustomer(@RequestBody Customer customer) throws ResourceNotFoundException {
+        return new ResponseEntity<>(customerService.create(customer), HttpStatus.OK);
     }
 
     @PutMapping(path="{id}")
-    public ResponseEntity<Object> putCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-        try{
-            return new ResponseEntity<>(customerService.update(id, customer), HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> putCustomer(@PathVariable Long id, @RequestBody Customer customer) throws ResourceNotFoundException {
+        return new ResponseEntity<>(customerService.update(id, customer), HttpStatus.OK);
     }
 
     @DeleteMapping(path="{id}")
-    public ResponseEntity<Object> deleteCustomer(@PathVariable long id) {
-        try {
-            return new ResponseEntity<>(customerService.delete(id), HttpStatus.OK);
-        } catch(ResourceNotFoundException e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Object> deleteCustomer(@PathVariable long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(customerService.delete(id), HttpStatus.OK);
     }
 }
