@@ -24,6 +24,7 @@ public class User {
             generator = "user_sequence"
     )
     private long user_id;
+    @Column(unique = true)
     private String username;
     private String password;
     private String role;

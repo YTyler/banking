@@ -1,12 +1,14 @@
 package com.ytyler.banking.service;
 
 import com.ytyler.banking.entity.User;
+import com.ytyler.banking.exception.InvalidLoginException;
 import com.ytyler.banking.exception.ResourceNotFoundException;
 import com.ytyler.banking.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +66,15 @@ public class UserService {
         User user = userOptional.get();
         userRepo.deleteById(id);
         return user;
+    }
+
+    //find User by username and password
+    public User login(User user) throws InvalidLoginException {
+        Optional<User> userOptional = userRepo.loginUser(user.getUsername(), user.getPassword());
+        if (userOptional.isEmpty()) {
+            throw new InvalidLoginException("username and password combination do not match any users");
+        } else {
+            return userOptional.get();
+        }
     }
 }

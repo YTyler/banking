@@ -2,6 +2,7 @@ package com.ytyler.banking.controller;
 
 import com.ytyler.banking.entity.Customer;
 import com.ytyler.banking.entity.User;
+import com.ytyler.banking.exception.InvalidLoginException;
 import com.ytyler.banking.exception.ResourceNotFoundException;
 import com.ytyler.banking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping(path="{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public ResponseEntity<User> getById(@PathVariable("id") Long id) throws ResourceNotFoundException {
             return new ResponseEntity<>(userService.readById(id), HttpStatus.OK);
     }
 
@@ -38,13 +39,18 @@ public class UserController {
         return new ResponseEntity<>(userService.create(user), HttpStatus.OK);
     }
 
+    @PostMapping(path="/login")
+    public ResponseEntity<User> loginUser(@RequestBody User user) throws InvalidLoginException {
+        return new ResponseEntity<>(userService.login(user), HttpStatus.OK);
+    }
+
     @PutMapping(path="{id}")
-    public ResponseEntity<Object> putUser(@PathVariable Long id, @RequestBody User user) throws ResourceNotFoundException {
+    public ResponseEntity<User> putUser(@PathVariable Long id, @RequestBody User user) throws ResourceNotFoundException {
             return new ResponseEntity<>(userService.update(id, user), HttpStatus.OK);
     }
 
     @DeleteMapping(path="{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable long id) throws ResourceNotFoundException {
+    public ResponseEntity<User> deleteUser(@PathVariable long id) throws ResourceNotFoundException {
             return new ResponseEntity<>(userService.delete(id), HttpStatus.OK);
     }
 }
