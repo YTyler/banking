@@ -26,6 +26,7 @@ public class Customer {
             generator = "customer_sequence"
     )
     private long customer_id;
+    @Column(unique = true)
     private long pan;
     private String citizen_uid;
     private String name;

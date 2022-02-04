@@ -32,6 +32,11 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.readById(id), HttpStatus.OK);
     }
 
+    @GetMapping(path="/pan/{pan}")
+    public ResponseEntity<Object> getByPan(@PathVariable("pan") Long pan) throws ResourceNotFoundException {
+        return new ResponseEntity<>(customerService.readByPan(pan), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Object> postCustomer(@RequestBody Customer customer) throws ResourceNotFoundException {
         return new ResponseEntity<>(customerService.create(customer), HttpStatus.OK);

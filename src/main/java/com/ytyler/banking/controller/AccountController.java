@@ -26,7 +26,6 @@ public class AccountController {
     public ResponseEntity<List<Account>> getAll() {
         return new ResponseEntity<>(accountService.readAll(), HttpStatus.OK);
     }
-
     @GetMapping(path="{account_number}")
     public ResponseEntity<Object> getById(@PathVariable("account_number") Long account_number) throws ResourceNotFoundException {
         return new ResponseEntity<>(accountService.readById(account_number), HttpStatus.OK);

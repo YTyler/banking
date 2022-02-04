@@ -38,6 +38,16 @@ public class CustomerService {
         }
     }
 
+    //get a Customer by pan
+    public Customer readByPan(long pan) throws ResourceNotFoundException {
+        Optional<Customer> customerOptional = customerRepo.findByPan(pan);
+        if(customerOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Customer with PAN: " + pan + " was not found");
+        } else {
+            return customerOptional.get();
+        }
+    }
+
     //create a new Customer
     public Customer create(Customer customer) throws ResourceNotFoundException {
         User user = userService.readById(customer.getUser().getUser_id());
