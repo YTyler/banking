@@ -1,6 +1,7 @@
 package com.ytyler.banking.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.ytyler.banking.generator.PasswordGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class User {
+
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -28,8 +30,19 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private Boolean verified;
 
     @JsonManagedReference
     @OneToOne(mappedBy = "user")
     private Customer customer;
+
+    @PrePersist
+    public void initialPassword() {
+        if(password == null) {
+            password = PasswordGenerator.generateRandomPassword();
+        }
+        if(verified == null) {
+            verified = false;
+        }
+    }
 }
