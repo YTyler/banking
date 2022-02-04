@@ -67,7 +67,7 @@ public class CustomerService {
             customerEdit.setPan(customer.getPan() > 0 ? customer.getPan() : customerEdit.getPan());
             customerEdit.setCitizen_uid(customer.getCitizen_uid().length() > 0 ? customer.getCitizen_uid() : customerEdit.getCitizen_uid());
             customerEdit.setName(customer.getName().length() > 0 ? customer.getName() : customerEdit.getName());
-            customerEdit.setPostal_address(customer.getPostal_address().length() > 0 ? customer.getPostal_address() : customerEdit.getPostal_address());
+            customerEdit.setAddress(customer.getAddress().length() > 0 ? customer.getAddress() : customerEdit.getAddress());
             customerEdit.setEmail(customer.getEmail().length() > 0 ? customer.getEmail() : customerEdit.getEmail());
             customerRepo.save(customerEdit); //save and return the edited customer
             return customerEdit;

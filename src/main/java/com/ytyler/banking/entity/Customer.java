@@ -30,7 +30,7 @@ public class Customer {
     private long pan;
     private String citizen_uid;
     private String name;
-    private String postal_address;
+    private String address;
     private String email;
 
     @JsonBackReference
